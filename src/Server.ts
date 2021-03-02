@@ -5,9 +5,9 @@ import httpServer, { createProxyServer } from 'http-proxy';
 import LogHandler from './handlers/Logger';
 
 class ProxyServer {
+  public port: number;
   private server: Server;
   private proxy: httpServer;
-  private port: number;
   private logger: Logger;
   private wsEndpoint: string;
 
