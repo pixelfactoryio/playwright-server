@@ -22,7 +22,7 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: yarn install --production
+        run: yarn install
 
       - name: Run linter
         run: yarn lint
