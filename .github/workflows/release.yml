@@ -31,4 +31,4 @@ jobs:
         run: yarn build
 
       - name: Release
-        run: npx semantic-release
+        run: yarn semantic-release
