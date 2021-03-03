@@ -5,44 +5,54 @@ import { createLogger, transports } from 'winston';
 import ProxyServer from './Server';
 
 const logger = createLogger({
-  level: process.env.LOG_LEVEL || 'info',
+  level: (process.env.LOG_LEVEL as 'debug' | 'info' | 'warn' | 'error') || 'info',
   format: ecsFormat({ convertReqRes: true }),
   transports: [new transports.Console()],
 });
 
-let browserType = process.env.BROWSER_TYPE || 'chromium';
+const browserType = (process.env.BROWSER_TYPE as 'chromium' | 'firefox' | 'webkit') || 'chromium';
 
-const startBrowserServer = async (type: string): Promise<playwright.BrowserServer> => {
-  switch (type) {
-    case 'chromium': {
-      return playwright['chromium'].launchServer();
-    }
-    case 'firefox': {
-      return playwright['firefox'].launchServer();
-    }
-    case 'webkit': {
-      return playwright['webkit'].launchServer();
-    }
-    default: {
-      logger.error(`unkown browserType ${browserType}, defaulting to chromium`);
-      browserType = 'chromium';
-      break;
-    }
+const healthcheck = async (wsEndpoint: string) => {
+  try {
+    const browser = await playwright[browserType].connect({ wsEndpoint });
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto('http://localhost:3000');
+    await page.close();
+    await context.close();
+    await browser.close();
+  } catch (e) {
+    logger.error(`server healthcheck failed`, { e });
+    process.exit(1);
   }
-  return playwright['chromium'].launchServer();
 };
 
 (async (): Promise<void> => {
-  const browserServer = await startBrowserServer(browserType);
+  const browserServer = await playwright[browserType].launchServer();
   const wsEndpoint = browserServer.wsEndpoint();
-  logger.info(`starting ${browserType} browser server ${wsEndpoint}`);
+  healthcheck(wsEndpoint);
+  logger.info(`${browserType} server listening on ${wsEndpoint}`);
 
   const server = new ProxyServer({
     logger,
-    wsEndpoint,
+    wsEndpoint: '',
     port: Number(process.env.PORT) || 3000,
   });
-
-  logger.info(`starting websocket proxy on port ${server.port}`);
   server.listen();
+
+  const sigs = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
+  sigs.forEach((sig) => {
+    process.on(sig, () => {
+      logger.debug(`${sig} signal received.`);
+      try {
+        server.close(() => {
+          logger.info('server stopped');
+          process.exit(0);
+        });
+      } catch (e) {
+        logger.error('an error occured while shutting down server', { err: e });
+        process.exit(1);
+      }
+    });
+  });
 })();
