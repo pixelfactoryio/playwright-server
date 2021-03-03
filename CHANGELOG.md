@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.1.0...v1.2.0) (2021-03-03)
+
+
+### Features
+
+* handle shutdown signals ([#2](https://github.com/pixelfactoryio/playwright-server/issues/2)) ([6a4bee5](https://github.com/pixelfactoryio/playwright-server/commit/6a4bee59ef4c278f34733ace2a6d9c8f4ed3198f))
+
 # [1.1.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.0.0...v1.1.0) (2021-03-02)
 
 
