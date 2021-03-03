@@ -35,7 +35,7 @@ const healthcheck = async (wsEndpoint: string) => {
 
   const server = new ProxyServer({
     logger,
-    wsEndpoint: '',
+    wsEndpoint: wsEndpoint,
     port: Number(process.env.PORT) || 3000,
   });
   server.listen();
