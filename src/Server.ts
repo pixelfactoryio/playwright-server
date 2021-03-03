@@ -5,11 +5,11 @@ import httpServer, { createProxyServer } from 'http-proxy';
 import LogHandler from './handlers/Logger';
 
 class ProxyServer {
-  public port: number;
+  private port: number;
+  private wsEndpoint: string;
   private server: Server;
   private proxy: httpServer;
   private logger: Logger;
-  private wsEndpoint: string;
 
   constructor(config: { port: number; logger: Logger; wsEndpoint: string }) {
     const { port, logger, wsEndpoint } = config;
@@ -38,8 +38,12 @@ class ProxyServer {
   }
 
   public listen(): void {
-    this.logger.info(`websocket listening port ${this.port}`);
+    this.logger.info(`websocket proxy listening on ws://0.0.0.0:${this.port}`);
     this.server.listen(this.port);
+  }
+
+  public close(callback?: (err?: Error) => void): Server {
+    return this.server.close(callback);
   }
 }
 

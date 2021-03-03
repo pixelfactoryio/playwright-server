@@ -90,4 +90,4 @@ ENTRYPOINT ["/usr/local/bin/tini", "-g", "--"]
 
 EXPOSE 3000
 
-CMD ["gosu", "pwuser", "yarn", "--silent", "start"]
+CMD ["gosu", "pwuser", "node", "dist/index.js"]
