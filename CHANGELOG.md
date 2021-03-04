@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/pixelfactoryio/playwright-server/compare/v1.2.0...v1.2.1) (2021-03-03)
+
+
+### Bug Fixes
+
+* empty wsEndpoint ([#3](https://github.com/pixelfactoryio/playwright-server/issues/3)) ([95bb07b](https://github.com/pixelfactoryio/playwright-server/commit/95bb07beaaa9b9b48706c46a8b4caaa2ff601694))
+
 # [1.2.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.1.0...v1.2.0) (2021-03-03)
 
 
