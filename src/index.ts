@@ -11,13 +11,13 @@ const logger = createLogger({
 });
 
 const browserType = (process.env.BROWSER_TYPE as 'chromium' | 'firefox' | 'webkit') || 'chromium';
+const port = Number(process.env.PORT) || 3000;
 
 const healthcheck = async (wsEndpoint: string) => {
   try {
     const browser = await playwright[browserType].connect({ wsEndpoint });
     const context = await browser.newContext();
     const page = await context.newPage();
-    await page.goto('http://localhost:3000');
     await page.close();
     await context.close();
     await browser.close();
@@ -27,19 +27,7 @@ const healthcheck = async (wsEndpoint: string) => {
   }
 };
 
-(async (): Promise<void> => {
-  const browserServer = await playwright[browserType].launchServer();
-  const wsEndpoint = browserServer.wsEndpoint();
-  healthcheck(wsEndpoint);
-  logger.info(`${browserType} server listening on ${wsEndpoint}`);
-
-  const server = new ProxyServer({
-    logger,
-    wsEndpoint: wsEndpoint,
-    port: Number(process.env.PORT) || 3000,
-  });
-  server.listen();
-
+const handleSignals = (server: ProxyServer) => {
   const sigs = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
   sigs.forEach((sig) => {
     process.on(sig, () => {
@@ -55,4 +43,16 @@ const healthcheck = async (wsEndpoint: string) => {
       }
     });
   });
+};
+
+(async (): Promise<void> => {
+  const browserServer = await playwright[browserType].launchServer();
+  const wsEndpoint = browserServer.wsEndpoint();
+  logger.info(`${browserType} server listening on ${wsEndpoint}`);
+  healthcheck(wsEndpoint);
+
+  const server = new ProxyServer({ logger, wsEndpoint, port });
+  server.listen();
+  healthcheck(`ws://localhost:${port}`);
+  handleSignals(server);
 })();
