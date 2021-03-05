@@ -21,14 +21,13 @@
   "scripts": {
     "lint": "eslint -c .eslintrc.js --ext .ts src",
     "lintfix": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "test": "tap -J --timeout=300 --invert --grep=build",
-    "posttest": "tap --coverage-report=text-lcov > coverage.out",
     "dev": "nodemon",
     "clean": "rimraf dist",
     "build": "npm run clean && npm run build:tsc",
     "build:tsc": "tsc -p .",
     "semantic-release": "semantic-release",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.0.0",
@@ -45,6 +44,7 @@
     "@types/http-proxy": "^1.17.5",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
+    "commitlint": "^12.0.1",
     "eslint": "^7.21.0",
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
@@ -52,14 +52,14 @@
     "nodemon": "^2.0.7",
     "prettier": "2.2.1",
     "rimraf": "^3.0.2",
-    "semantic-release": "^17.4.0",
+    "semantic-release": "^17.4.1",
     "ts-node": "^9.1.1",
-    "tsconfig-paths": "^3.9.0",
-    "typescript": "^4.2.2"
+    "typescript": "^4.2.3"
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "yarn lint",
+      "commit-msg": "yarn commitlint --edit $1"
     }
   },
   "release": {
