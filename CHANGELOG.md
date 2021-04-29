@@ -1,3 +1,10 @@
+## [1.2.3](https://github.com/pixelfactoryio/playwright-server/compare/v1.2.2...v1.2.3) (2021-04-29)
+
+
+### Bug Fixes
+
+* package.json & yarn.lock to reduce vulnerabilities ([#7](https://github.com/pixelfactoryio/playwright-server/issues/7)) ([c42298e](https://github.com/pixelfactoryio/playwright-server/commit/c42298ee98762f15cbfe3704aa536c7f2f2f1648))
+
 ## [1.2.2](https://github.com/pixelfactoryio/playwright-server/compare/v1.2.1...v1.2.2) (2021-03-04)
 
 
