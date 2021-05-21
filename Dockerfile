@@ -6,7 +6,7 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
-FROM ubuntu:20.04
+FROM ubuntu:groovy-20210416
 
 # Package list from
 # Source https://github.com/microsoft/playwright/blob/master/utils/docker/Dockerfile.focal
