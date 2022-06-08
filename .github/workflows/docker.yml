@@ -36,6 +36,7 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/arm64/v8,linux/amd64 \
+            --push \
             --tag pixelfactory/playwright:${GITHUB_REF_NAME} .
 
       - name: Clear

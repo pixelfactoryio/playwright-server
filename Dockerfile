@@ -1,4 +1,4 @@
-FROM --platform=$TARGETPLATFORM node:lts as builder
+FROM node:lts as builder
 
 WORKDIR /build
 COPY package.json yarn.lock /build/
@@ -6,7 +6,7 @@ RUN yarn install
 COPY . .
 RUN yarn build
 
-FROM --platform=$TARGETPLATFORM mcr.microsoft.com/playwright:v1.22.2
+FROM mcr.microsoft.com/playwright:v1.22.2
 
 ARG TARGETARCH
 
@@ -21,7 +21,8 @@ RUN chmod +x /usr/local/bin/gosu
 
 WORKDIR /usr/local/app
 COPY package.json yarn.lock /usr/local/app/
-RUN yarn install --production
+RUN yarn install --production \
+  && yarn cache clean
 COPY --from=builder /build/dist /usr/local/app/dist
 
 ENTRYPOINT ["/usr/local/bin/tini", "-g", "--"]
