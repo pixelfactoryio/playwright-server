@@ -1,4 +1,4 @@
-name: docker
+name: CI
 
 on:
   push:
@@ -11,9 +11,38 @@ on:
       - 'master'
 
 jobs:
-  docker:
+  build:
+    name: Yarn build
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
 
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run linter
+        run: yarn lint
+
+  release:
+    name: Publish Release
+    runs-on: ubuntu-20.04
+    needs: build
+    steps:
+      - name: Semantic-Release
+        run: yarn semantic-release
+
+  docker:
+    name: Docker build & push
+    runs-on: ubuntu-20.04
     steps:
       - name: Check out code
         uses: actions/checkout@v2
@@ -41,7 +70,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: false
+          push: ${{ github.event_name != 'pull_request' }}
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
