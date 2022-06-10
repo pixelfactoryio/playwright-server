@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.2.3...v1.3.0) (2022-06-10)
+
+
+### Features
+
+* **docker:** Add multi-arch docker build ([#17](https://github.com/pixelfactoryio/playwright-server/issues/17)) ([da24523](https://github.com/pixelfactoryio/playwright-server/commit/da2452383958e26d78d6664c8e77751a9fcc16c8))
+
 ## [1.2.3](https://github.com/pixelfactoryio/playwright-server/compare/v1.2.2...v1.2.3) (2021-04-29)
 
 
