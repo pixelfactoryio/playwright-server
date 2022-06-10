@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.0...v1.3.1) (2022-06-10)
+
+
+### Bug Fixes
+
+* **docker:** Enable build on tag ([1cdfbb3](https://github.com/pixelfactoryio/playwright-server/commit/1cdfbb3a3b31424555c5e4174be6e32fc1dc3317))
+
 # [1.3.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.2.3...v1.3.0) (2022-06-10)
 
 
