@@ -38,6 +38,7 @@ jobs:
     needs: build
     steps:
       - name: Semantic-Release
+        uses: actions/checkout@v2
         run: yarn semantic-release
 
   docker:
