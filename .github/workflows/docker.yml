@@ -37,8 +37,10 @@ jobs:
     runs-on: ubuntu-20.04
     needs: build
     steps:
-      - name: Semantic-Release
+      - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Semantic-Release
         run: yarn semantic-release
 
   docker:
