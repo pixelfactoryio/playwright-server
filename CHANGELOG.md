@@ -1,3 +1,10 @@
+## [1.3.2](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.1...v1.3.2) (2022-06-10)
+
+
+### Bug Fixes
+
+* **docker:** fix release commit message to trigger docker build on tags push ([b67e4a9](https://github.com/pixelfactoryio/playwright-server/commit/b67e4a9b8fa24553620bc62d8d47fae43783d19a))
+
 ## [1.3.1](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.0...v1.3.1) (2022-06-10)
 
 
