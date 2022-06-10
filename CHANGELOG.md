@@ -1,3 +1,10 @@
+## [1.3.3](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.2...v1.3.3) (2022-06-10)
+
+
+### Bug Fixes
+
+* **ci:** trigger ci on every tag ([2725d30](https://github.com/pixelfactoryio/playwright-server/commit/2725d30b3c065610e158e4af95ad71fb2ac0ce0e))
+
 ## [1.3.2](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.1...v1.3.2) (2022-06-10)
 
 
