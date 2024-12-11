@@ -16,16 +16,20 @@ $ docker run -p 3000:3000 pixelfactory/playwright
 Connect to the websocket :
 
 ```js
-const { chromium } = require('playwright');
+import { chromium } from 'playwright';
 
-const browser = await chromium.connect({
-  wsEndpoint: 'ws://localhost:3000',
-});
+(async () => {
+  const browser = await chromium.connect({ wsEndpoint: 'ws://0.0.0.0:3000/' });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  
+  await page.goto('https://example.com');
+  await page.screenshot({ path: 'example.png' });
 
-const context = await browser.context();
-const page = await context.page();
-
-page.goto('https://example.com');
+  await page.close();
+  await context.close();
+  await browser.close();
+})();
 ```
 
 ## Configuration
@@ -56,6 +60,6 @@ docker run -p 3000:3000 -e BROWSER_TYPE=webkit pixelfactory/playwright
 
 By default the websocket proxy server listen on port `3000`, but you can customize the port using the environment variable `PORT`.
 
-```
+```bash
 docker run -p 5000:5000 -e PORT=5000 pixelfactory/playwright
 ```

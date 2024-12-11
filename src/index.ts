@@ -15,6 +15,7 @@ const port = Number(process.env.PORT) || 3000;
 
 const healthcheck = async (wsEndpoint: string) => {
   try {
+    logger.debug(`checking server health at ${wsEndpoint}`);
     const browser = await playwright[browserType].connect({ wsEndpoint });
     const context = await browser.newContext();
     const page = await context.newPage();
