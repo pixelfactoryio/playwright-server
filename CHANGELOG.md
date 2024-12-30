@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/pixelfactoryio/playwright-server/compare/v1.4.0...v1.4.1) (2024-12-30)
+
+
+### Bug Fixes
+
+* use CodeQL action v3 ([0632e75](https://github.com/pixelfactoryio/playwright-server/commit/0632e7545a54d7e0b3dcd4475d5d58b6c8865143))
+
 # [1.4.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.4...v1.4.0) (2024-12-30)
 
 
