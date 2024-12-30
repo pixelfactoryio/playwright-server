@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.4...v1.4.0) (2024-12-30)
+
+
+### Features
+
+* use playwright version 1.49 ([#30](https://github.com/pixelfactoryio/playwright-server/issues/30)) ([7f71ce5](https://github.com/pixelfactoryio/playwright-server/commit/7f71ce5d503c8fa1503bcb0819f9d135a5db7386))
+
 # [1.4.0](https://github.com/pixelfactoryio/playwright-server/compare/v1.3.4...v1.4.0) (2024-12-11)
 
 
