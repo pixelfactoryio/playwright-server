@@ -32,7 +32,7 @@
   "dependencies": {
     "@elastic/ecs-winston-format": "^1.5.3",
     "http-proxy": "^1.18.1",
-    "playwright": "^1.49.1",
+    "playwright": "^1.56.0",
     "winston": "^3.17.0"
   },
   "devDependencies": {
